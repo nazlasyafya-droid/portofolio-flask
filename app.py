@@ -16,9 +16,12 @@ from models import Project, Message, Profile, Skill
 def index():
     profile = Profile.query.first()
     return render_template('index.html', profile=profile)
+
 @app.route('/about')
 def about():
-    return "Halaman About (belum jadi)"
+    profile = Profile.query.first()
+    skills = Skill.query.all()
+    return render_template('about.html', profile=profile, skills=skills)
 
 @app.route('/portfolio')
 def portfolio():
