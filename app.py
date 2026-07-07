@@ -33,9 +33,22 @@ def project_detail(id):
     project = Project.query.get_or_404(id)
     return render_template('project_detail.html', project=project)
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return "Halaman Kontak (belum jadi)"
+    profile = Profile.query.first()
+    success = False
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message_text = request.form.get('message')
+
+        new_message = Message(name=name, email=email, message=message_text)
+        db.session.add(new_message)
+        db.session.commit()
+        success = True
+
+    return render_template('contact.html', profile=profile, success=success)
 
 if __name__ == '__main__':
     with app.app_context():
