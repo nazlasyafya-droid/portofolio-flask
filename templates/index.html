@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <img src="{{ url_for('static', filename='uploads/' + profile.photo_file) }}" alt="Foto Profil" class="profile-photo">
+    <h1>{{ profile.name }}</h1>
+    <p class="headline">{{ profile.headline }}</p>
+    <p class="about-summary">{{ profile.about[:150] }}...</p>
+
+    <div class="hero-buttons">
+        <a href="{{ url_for('portfolio') }}" class="btn">Lihat Portofolio</a>
+        <a href="{{ url_for('contact') }}" class="btn btn-secondary">Hubungi Saya</a>
+    </div>
+</section>
+
+{% endblock %}

@@ -14,7 +14,19 @@ from models import Project, Message, Profile, Skill
 
 @app.route('/')
 def index():
-    return "Halo, Flask berhasil jalan!"
+    profile = Profile.query.first()
+    return render_template('index.html', profile=profile)
+@app.route('/about')
+def about():
+    return "Halaman About (belum jadi)"
+
+@app.route('/portfolio')
+def portfolio():
+    return "Halaman Portofolio (belum jadi)"
+
+@app.route('/contact')
+def contact():
+    return "Halaman Kontak (belum jadi)"
 
 if __name__ == '__main__':
     with app.app_context():
