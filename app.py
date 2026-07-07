@@ -25,7 +25,13 @@ def about():
 
 @app.route('/portfolio')
 def portfolio():
-    return "Halaman Portofolio (belum jadi)"
+    projects = Project.query.all()
+    return render_template('portofolio.html', projects=projects)
+
+@app.route('/portfolio/<int:id>')
+def project_detail(id):
+    project = Project.query.get_or_404(id)
+    return render_template('project_detail.html', project=project)
 
 @app.route('/contact')
 def contact():
