@@ -78,7 +78,29 @@ def logout():
 def dashboard_index():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return "Dashboard (belum jadi)"
+
+    total_projects = Project.query.count()
+    unread_messages = Message.query.filter_by(is_read=False).count()
+
+    return render_template('dashboard/index.html', total_projects=total_projects, unread_messages=unread_messages)
+
+@app.route('/dashboard/projects')
+def dashboard_projects():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Kelola Proyek (belum jadi)"
+
+@app.route('/dashboard/messages')
+def dashboard_messages():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Kotak Masuk (belum jadi)"
+
+@app.route('/dashboard/profile')
+def dashboard_profile():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Edit Profil (belum jadi)"
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<h1>Dashboard Admin</h1>
+<p>Selamat datang, {{ session['user'] }}!</p>
+
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <h2>{{ total_projects }}</h2>
+        <p>Total Proyek</p>
+    </div>
+    <div class="stat-card">
+        <h2>{{ unread_messages }}</h2>
+        <p>Pesan Belum Dibaca</p>
+    </div>
+</div>
+
+<div class="dashboard-shortcuts">
+    <a href="{{ url_for('dashboard_projects') }}" class="btn">Kelola Proyek</a>
+    <a href="{{ url_for('dashboard_messages') }}" class="btn">Kotak Masuk Pesan</a>
+    <a href="{{ url_for('dashboard_profile') }}" class="btn">Edit Profil</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+</div>
+
+{% endblock %}
