@@ -7,6 +7,8 @@ app.config['SECRET_KEY'] = 'ganti-dengan-kunci-rahasia-anda'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
+app.config['ADMIN_USERNAME'] = 'admin'
+app.config['ADMIN_PASSWORD'] = 'xxx1515'
 
 db.init_app(app)
 
@@ -49,6 +51,34 @@ def contact():
         success = True
 
     return render_template('contact.html', profile=profile, success=success)
+
+@app.route('/dashboard/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if username == app.config['ADMIN_USERNAME'] and password == app.config['ADMIN_PASSWORD']:
+            session['user'] = username
+            return redirect(url_for('dashboard_index'))
+        else:
+            error = "Username atau password salah."
+
+    return render_template('dashboard/login.html', error=error)
+
+
+@app.route('/dashboard/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+
+@app.route('/dashboard')
+def dashboard_index():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Dashboard (belum jadi)"
 
 if __name__ == '__main__':
     with app.app_context():
