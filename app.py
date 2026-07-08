@@ -145,7 +145,10 @@ def edit_project(id):
 def delete_project(id):
     if 'user' not in session:
         return redirect(url_for('login'))
-    return "Hapus Proyek (belum jadi)"
+    project = Project.query.get_or_404(id)
+    db.session.delete(project)
+    db.session.commit()
+    return redirect(url_for('dashboard_projects'))
 
 @app.route('/dashboard/messages')
 def dashboard_messages():
