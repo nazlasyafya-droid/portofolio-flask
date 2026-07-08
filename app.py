@@ -14,6 +14,13 @@ db.init_app(app)
 
 from models import Project, Message, Profile, Skill
 
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/')
 def index():
     profile = Profile.query.first()
@@ -88,7 +95,57 @@ def dashboard_index():
 def dashboard_projects():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return "Kelola Proyek (belum jadi)"
+    projects = Project.query.all()
+    return render_template('dashboard/projects.html', projects=projects)
+
+@app.route('/dashboard/projects/add', methods=['GET', 'POST'])
+def add_project():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    error = None
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        technologies = request.form.get('technologies')
+        github_link = request.form.get('github_link')
+        live_link = request.form.get('live_link')
+        file = request.files.get('image')
+
+        img_name = 'default.jpg'
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                img_name = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
+            else:
+                error = "Format file tidak didukung. Gunakan PNG, JPG, JPEG, GIF, atau WEBP."
+
+        if not error:
+            new_project = Project(
+                title=title,
+                description=description,
+                technologies=technologies,
+                image_file=img_name,
+                github_link=github_link,
+                live_link=live_link
+            )
+            db.session.add(new_project)
+            db.session.commit()
+            return redirect(url_for('dashboard_projects'))
+
+    return render_template('dashboard/add_project.html', error=error)
+
+@app.route('/dashboard/projects/edit/<int:id>')
+def edit_project(id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Edit Proyek (belum jadi)"
+
+@app.route('/dashboard/projects/delete/<int:id>', methods=['POST'])
+def delete_project(id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return "Hapus Proyek (belum jadi)"
 
 @app.route('/dashboard/messages')
 def dashboard_messages():
