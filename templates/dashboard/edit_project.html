@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Edit Proyek{% endblock %}
+{% block content %}
+
+<h1>Edit Proyek</h1>
+
+{% if error %}
+<p class="alert-error">{{ error }}</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('edit_project', id=project.id) }}" enctype="multipart/form-data" class="project-form">
+    <label for="title">Judul Proyek</label>
+    <input type="text" id="title" name="title" value="{{ project.title }}" required>
+
+    <label for="description">Deskripsi</label>
+    <textarea id="description" name="description" rows="4" required>{{ project.description }}</textarea>
+
+    <label for="technologies">Teknologi (pisahkan dengan koma)</label>
+    <input type="text" id="technologies" name="technologies" value="{{ project.technologies }}">
+
+    <label for="github_link">Link GitHub</label>
+    <input type="url" id="github_link" name="github_link" value="{{ project.github_link or '' }}">
+
+    <label for="live_link">Link Demo (opsional)</label>
+    <input type="url" id="live_link" name="live_link" value="{{ project.live_link or '' }}">
+
+    <label>Gambar Saat Ini:</label>
+    <img src="{{ url_for('static', filename='uploads/' + project.image_file) }}" alt="{{ project.title }}" class="thumb">
+
+    <label for="image">Ganti Gambar (opsional)</label>
+    <input type="file" id="image" name="image" accept=".png,.jpg,.jpeg,.gif,.webp">
+
+    <button type="submit">Simpan Perubahan</button>
+    <a href="{{ url_for('dashboard_projects') }}">Batal</a>
+</form>
+
+{% endblock %}
