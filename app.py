@@ -180,11 +180,58 @@ def dashboard_messages():
         return redirect(url_for('login'))
     return "Kotak Masuk (belum jadi)"
 
-@app.route('/dashboard/profile')
+@app.route('/dashboard/profile', methods=['GET', 'POST'])
 def dashboard_profile():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return "Edit Profil (belum jadi)"
+
+    profile = Profile.query.first()
+    skills = Skill.query.all()
+    success = False
+
+    if request.method == 'POST':
+        profile.name = request.form.get('name')
+        profile.headline = request.form.get('headline')
+        profile.about = request.form.get('about')
+        profile.email = request.form.get('email')
+        profile.github_url = request.form.get('github_url')
+        profile.linkedin_url = request.form.get('linkedin_url')
+
+        file = request.files.get('photo')
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                img_name = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
+                profile.photo_file = img_name
+
+        db.session.commit()
+        success = True
+
+    return render_template('dashboard/profile.html', profile=profile, skills=skills, success=success)
+
+@app.route('/dashboard/profile/skill/add', methods=['POST'])
+def add_skill():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    skill_name = request.form.get('skill_name')
+    if skill_name:
+        new_skill = Skill(name=skill_name)
+        db.session.add(new_skill)
+        db.session.commit()
+
+    return redirect(url_for('dashboard_profile'))
+
+
+@app.route('/dashboard/profile/skill/delete/<int:id>', methods=['POST'])
+def delete_skill(id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    skill = Skill.query.get_or_404(id)
+    db.session.delete(skill)
+    db.session.commit()
+    return redirect(url_for('dashboard_profile'))
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profil{% endblock %}
+{% block content %}
+
+<h1>Edit Profil</h1>
+
+{% if success %}
+<p class="alert-success">Profil berhasil diperbarui!</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('dashboard_profile') }}" enctype="multipart/form-data" class="project-form">
+    <label for="name">Nama</label>
+    <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+
+    <label for="headline">Headline / Tagline</label>
+    <input type="text" id="headline" name="headline" value="{{ profile.headline or '' }}">
+
+    <label for="about">Tentang Saya</label>
+    <textarea id="about" name="about" rows="5">{{ profile.about or '' }}</textarea>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="{{ profile.email or '' }}">
+
+    <label for="github_url">Link GitHub</label>
+    <input type="url" id="github_url" name="github_url" value="{{ profile.github_url or '' }}">
+
+    <label for="linkedin_url">Link LinkedIn</label>
+    <input type="url" id="linkedin_url" name="linkedin_url" value="{{ profile.linkedin_url or '' }}">
+
+    <label>Foto Saat Ini:</label>
+    <img src="{{ url_for('static', filename='uploads/' + profile.photo_file) }}" alt="Foto Profil" class="thumb">
+
+    <label for="photo">Ganti Foto (opsional)</label>
+    <input type="file" id="photo" name="photo" accept=".png,.jpg,.jpeg,.gif,.webp">
+
+    <button type="submit">Simpan Perubahan</button>
+</form>
+
+<hr>
+
+<h2>Kelola Skill</h2>
+
+<form method="POST" action="{{ url_for('add_skill') }}" class="project-form">
+    <label for="skill_name">Tambah Skill Baru</label>
+    <input type="text" id="skill_name" name="skill_name" placeholder="Contoh: JavaScript" required>
+    <button type="submit">Tambah Skill</button>
+</form>
+
+<ul class="skill-list">
+    {% for skill in skills %}
+    <li>
+        {{ skill.name }}
+        <form method="POST" action="{{ url_for('delete_skill', id=skill.id) }}" style="display:inline;">
+            <button type="submit" class="btn-delete">Hapus</button>
+        </form>
+    </li>
+    {% else %}
+    <li>Belum ada skill.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
