@@ -128,3 +128,13 @@ form button:hover {
 .btn-delete:hover {
     background-color: #a93226;
 }
+
+/* Foto profil di halaman Home */
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 1rem;
+}
