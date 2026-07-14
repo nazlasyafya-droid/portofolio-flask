@@ -1,3 +1,9 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +14,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background-color: #333;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
 }
 
@@ -33,7 +39,7 @@ body {
 .footer {
     text-align: center;
     padding: 1rem;
-    background-color: #333;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
 }
 
@@ -104,7 +110,7 @@ form button:hover {
 .btn {
     display: inline-block;
     padding: 0.6rem 1.2rem;
-    background-color: #333;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     text-decoration: none;
     border-radius: 4px;
