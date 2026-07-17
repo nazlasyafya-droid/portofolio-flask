@@ -15,6 +15,10 @@
             <li><a href="{{ url_for('about') }}">About</a></li>
             <li><a href="{{ url_for('portfolio') }}">Portofolio</a></li>
             <li><a href="{{ url_for('contact') }}">Kontak</a></li>
+            {% if session.get('user') %}
+            <li><a href="{{ url_for('dashboard_index') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% endif %}
         </ul>
     </nav>
 

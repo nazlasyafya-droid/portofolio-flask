@@ -7,7 +7,7 @@ app.config['SECRET_KEY'] = 'ganti-dengan-kunci-rahasia-anda'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
-app.config['ADMIN_USERNAME'] = 'admin'
+app.config['ADMIN_USERNAME'] = 'nazla syafya'
 app.config['ADMIN_PASSWORD'] = 'xxx1515'
 
 db.init_app(app)
