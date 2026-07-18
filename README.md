@@ -55,9 +55,7 @@ python app.py
 
 ## Akun Demo Dashboard
 
-- URL: `/dashboard/login`
-- Username: `admin`
-- Password: `xxx1515`
+Kredensial akun demo untuk keperluan penilaian tersedia di laporan project (sesuai ketentuan tugas).
 
 ## Struktur Folder
 ```

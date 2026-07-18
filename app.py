@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'nazla_syafya')
-app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'xxx1515')
+app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'nzlla1515')
 
 db.init_app(app)
 
