@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-ganti-saat-production')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///portfolio.db')
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'nazla_syafya')
 app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'nzlla1515')
