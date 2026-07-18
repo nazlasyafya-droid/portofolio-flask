@@ -7,8 +7,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-ganti-saat-prod
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///portfolio.db')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
-app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'admin')
-app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'ganti-ini')
+app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'nazla_syafya')
+app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'xxx1515')
 
 db.init_app(app)
 

@@ -18,6 +18,8 @@
             {% if session.get('user') %}
             <li><a href="{{ url_for('dashboard_index') }}">Dashboard</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
             {% endif %}
         </ul>
     </nav>
